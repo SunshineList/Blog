@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <title>Article_Page</title>
+</head>
+<body>
+<center>
+    <h1> {{ article.title }}</h1>
+    <br>
+    <h2> {{ article.content }}</h2>
+    <br><br>
+    <a href="{% url 'blog:edit_page' article.id %}" class="btn btn-primary btn-lg active" role="button">Change Blog</a>
+    <form action="{% url 'blog:del_page' article.id %}" method="post">
+        {% csrf_token %}
+        <br>
+        <input type="submit" value="Del_Blog" class="btn btn-primary btn-lg active" role="button">
+    </form>
+    <div>
+        <nav aria-label="...">
+            <ul class="pager">
+                <li><a href="{% url 'blog:article_page' previous.id %}">上一篇:{{ previous.title }}</a></li>
+                <li><a href="{% url 'blog:article_page' next.id %}">下一篇:{{ next.title }}</a></li>
+            </ul>
+        </nav>
+    </div>
+</center>
+</body>
+</html>

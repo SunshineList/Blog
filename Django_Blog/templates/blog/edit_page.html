@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Edit_page</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<script>
+    function judge() {
+        var text = document.getElementById("t").value;
+        var text_1 = document.getElementById("t1").value;
+        if (text === "" || text_1 === "")
+            alert("Blog is empty");
+        else{
+            document.getElementById("form").submit();
+        }
+    }
+</script>
+<form action="{% url 'blog:edit_action' %}" method="post" id = "form">
+    {% csrf_token %}
+{#    {% if article %}#}
+        <center>
+        <input type="hidden" name="article_id" value="{{ article.id | default:'0'}}">
+        <label>文章标题
+            <input id="t" type="text" name="title" value="{{ article.title }}" class="form-control" placeholder="Title">
+        </label>
+            <br>
+        <label>文章内容
+            <input id="t1" type="text" name="content" value="{{ article.content }}" class="form-control" placeholder="Content">
+        </label>
+            <br>
+{#    {% else %}#}
+{#        <input type="hidden" name="article_id" value="0">#}
+{#        <label>文章标题#}
+{#            <input type="text" name="title">#}
+{#            <br>#}
+{#        </label>#}
+{#        <label>文章内容#}
+{#            <input type="text" name="content">#}
+{#            <br>#}
+{#        </label>#}
+{#    {% endif %}#}
+    <input type="button" value="提交" onclick="judge()" class="btn btn-info">
+    </center>
+</form>
+</body>
+</html>
