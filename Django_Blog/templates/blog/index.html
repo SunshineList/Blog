@@ -10,7 +10,8 @@
     <br><br>
     {% for article in articles %}
         <div style="color: aqua;border: 1px solid #00cccc">
-            <a href="{% url 'blog:article_page' article.id %}">第{{ article.id }}条:{{ article.title }} </a>
+            <a href="{% url 'blog:article_page' article.id %}">第{{ article.id }}条:{{ article.title }}</a>
+            <span style="margin-left: 10%;color: #0f0f0f">发布日期{{ article.pub_time }}</span>
         </div>
         <br>
     {% endfor %}
