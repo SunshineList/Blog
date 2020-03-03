@@ -66,12 +66,12 @@
     </div>
     <script>
         $.ajax({
-            url: 'http://www.outputbug.com/yzm',
+            url: 'www.outputbug.com/yzm',
             success: function (data) {
                 var identifyCodeSrc = data.image_url;
                 form.hash.value = data.hashkey;
                 let objs = document.getElementById("imgIdentifyingCode");
-                objs.src = 'http://www.outputbug.com' + identifyCodeSrc;
+                objs.src = 'www.outputbug.com' + identifyCodeSrc;
             },
         });
         $("#forget").on('click', function () {
@@ -91,12 +91,12 @@
         //更新验证码
         $("#imgIdentifyingCode").on('click', function () {
             $.ajax({
-                url: 'http://www.outputbug.com/yzm',
+                url: 'www.outputbug.com/yzm',
                 success: function (data) {
                     var identifyCodeSrc = data.image_url;
                     form.hash.value = data.hashkey;
                     let objs = document.getElementById("imgIdentifyingCode");
-                    objs.src = 'http://www.outputbug.com' + identifyCodeSrc;
+                    objs.src = 'www.outputbug.com' + identifyCodeSrc;
                 },
             })
         });
