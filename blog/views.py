@@ -1,17 +1,17 @@
 from django.shortcuts import render
-from . import models
+from .models import Article
 
 
 # 主页
 def Blog_index(request):
-    articles = models.Article.objects.all()
+    articles = Article.objects.all()
     return render(request, "blog/index.html", {'articles': articles})
 
 
 # Blog Content
 def article_page(request, article_id):
-    article = models.Article.objects.get(pk=article_id)
-    all_article = models.Article.objects.all()
+    article = Article.objects.get(pk=article_id)
+    all_article = Article.objects.all()
     previous = None
     next = None
     for index, article_1 in enumerate(all_article):
@@ -39,21 +39,21 @@ def edit_page(request, article_id):
     if str(article_id) == '0':
         return render(request, "blog/edit_page.html")
     else:
-        article = models.Article.objects.get(pk=article_id)
+        article = Article.objects.get(pk=article_id)
         return render(request, "blog/edit_page.html", {'article': article})
 
 
 # 撰写博客
 def edit_action(request):
-    title = request.POST.get('title', 'TITLE')
-    content = request.POST.get('content', 'CONTENT')
-    article_id = request.POST.get('acticle_id', '0')
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+    article_id = request.POST.get('acticle_id')
     if article_id == '0':
-        models.Article.objects.create(title=title, content=content)
-        articles = models.Article.objects.all()
+        Article.objects.create(title=title, content=content)
+        articles = Article.objects.all()
         return render(request, "blog/index.html", {'articles': articles})
     else:
-        article = models.Article.objects.get(pk=article_id)
+        article = Article.objects.get(pk=article_id)
         article.title = title
         article.content = content
         article.save()
@@ -62,5 +62,5 @@ def edit_action(request):
 
 # 删除博客
 def del_page(request, article_id):
-    models.Article.objects.get(pk=article_id).delete()
+    Article.objects.get(pk=article_id).delete()
     return render(request, "blog/Del_page.html")

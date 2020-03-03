@@ -14,8 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.conf.urls import url,include
+from django.conf.urls import url, include
+from account.views import refresh_captcha, IndexView
+from django.conf import settings
+from django.views import static
+
 urlpatterns = [
+    # url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
     url('admin/', admin.site.urls),
-    url('blog/',include('blog.urls',namespace='blog')),
+    url('blog/', include('blog.urls', namespace='blog')),
+    url('captcha/', include('captcha.urls')),
+    url('refresh_captcha/', refresh_captcha),
+    url('yzm', IndexView.as_view()),
+    url('info/', include('account.urls', namespace='info')),
+
 ]

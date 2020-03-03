@@ -35,8 +35,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog.apps.BlogConfig',
+    'rest_framework',
+    'account',
+    'captcha'
 ]
+# 字母验证码
+CAPTCHA_IMAGE_SIZE = (80, 45)  # 设置 captcha 图片大小
+CAPTCHA_LENGTH = 4  # 字符个数
+CAPTCHA_TIMEOUT = 1  # 超时(minutes)
+
+# 加减乘除验证码
+CAPTCHA_OUTPUT_FORMAT = '%(image)s %(text_field)s %(hidden_field)s '
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',
+                           'captcha.helpers.noise_arcs',  # 线
+                           'captcha.helpers.noise_dots',  # 点
+                           )
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_TIMEOUT = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'Django_Demo_Blog.urls'
 
 TEMPLATES = [
@@ -122,9 +138,8 @@ TIME_FORMAT = 'H:i:s'
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 # 静态文件设置
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATIC_ROOT = os.path.join(BASE_DIR, "static_all")
