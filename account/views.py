@@ -31,7 +31,7 @@ def login(request):
     cp = check_password(pas, check_pas)
     if not cp:
         return render(request, 'error.html', {
-            {'msg': '账号密码不匹配'}
+            'msg': '账号密码不匹配'
         })
     token = str(time.time()) + usr
     UserToken.objects.update_or_create(username=obj, defaults={'token': token})

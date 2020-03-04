@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-4&+*eml%m!lzv7u$(_kos8=v1oget8j%(zv841uvm-ar1j!l@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -89,10 +89,10 @@ WSGI_APPLICATION = 'Django_Demo_Blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
+        'NAME': 'testblog',
         'USER': 'root',
         'PASSWORD': '19981008',
-        'HOST': 'localhost',
+        'HOST': '47.106.77.191',
         'PORT': '3306',
     }
 }
