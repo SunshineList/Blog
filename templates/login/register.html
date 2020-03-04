@@ -3,7 +3,7 @@
 {% block content %}
     {% if  code == 0 %}
         <script>
-             window.history.go(-1);
+            window.history.go(-1);
             alert('{{ msg }}');
         </script>
     {% elif code == 1 %}
@@ -12,10 +12,11 @@
             alert('{{ msg }}');
         </script>
     {% endif %}
-    <div class="weui-form">
-        <div class="weui-form__text-area" style="padding-top: 15%">
-            <h2 class="weui-form__title">注册</h2>
-        </div>
+    {% load static %}
+    <div class="weui_cells_title page_title" style="padding-top: 10%">
+        <img src="{% static 'images/logo.jpeg' %}" style="width: 40%;height:20%;text-align: center">
+    </div>
+    <div class="weui-form" style="padding-top: 0">
         <form action="{% url 'info:register' %}" id="form" method="post">{% csrf_token %}
             <div class="weui-form__control-area">
                 <div class="weui-cells__group weui-cells__group_form">
@@ -25,7 +26,7 @@
                             <div class="weui-cell__hd"><label class="weui-label">用户名</label></div>
                             <div class="weui-cell__bd">
                                 <input class="weui-input"
-                                       placeholder="请填写用户名" name="username">
+                                       placeholder="请填写用户名" name="username" value="">
                             </div>
                         </div>
                         <div class="weui-cell">
@@ -48,7 +49,7 @@
                         </div>
                         <div class="weui-cell">
                             <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
-                            <input type="text" class="weui-input" placeholder="请填写验证码" name="yzm">
+                            <input type="text" class="weui-input" placeholder="请填写验证码" name="yzm" value="">
                             <div style="">
                                 <input type="hidden" name="hash" id="hash">
                             </div>
@@ -63,14 +64,11 @@
             </div>
         </form>
     </div>
-    <div class="weui-form__opr-area">
+    <div class="weui-form__opr-area" style="margin-bottom: 50px">
         <a class="weui-btn weui-btn_primary" id="showTooltips">注册</a>
         <a class="weui-btn weui-btn_primary" href="javascript:window.history.go(-1)">返回</a>
     </div>
-
-    <div class="weui-form__tips-area">
-    </div>
-    <div class="weui-form__extra-area">
+    <div class="weui-form__extra-area" style="margin-bottom: 50px">
         <div class="weui-footer">
             <p class="weui-footer__links">
                 <a href="javascript:void(0)" class="weui-footer__link" id="forget">老王</a>
@@ -89,17 +87,19 @@
                 objs.src = 'http:www.outputbug.com' + identifyCodeSrc;
             },
         });
+        var phone = /^1(3|4|5|7|8)\d{9}$/;
+        var pwd = /^(?:\d+|[a-zA-Z]+|[!@#$%^&*]+){6,18}$/;
         $("#showTooltips").on('click', function () {
             if (form.username.value === '') {
                 alert("请填写用户名")
-            } else if (form.password.value === '') {
-                alert("请填写密码")
+            } else if (!pwd.test(form.password.value)) {
+                alert("密码不正确，密码由6-18位数字、英文或特殊字符组成")
             } else if (form.querenpwd.value !== form.password.value) {
                 alert("两次密码输入不一致");
                 form.password.value = '';
                 form.querenpwd.value = '';
-            } else if (form.telphone.value === '') {
-                alert("请填写手机号")
+            } else if (!phone.test(form.telphone.value)) {
+                alert("请输入正确的手机号")
             } else if (form.yzm.value === '') {
                 alert('请填写验证码')
             } else {

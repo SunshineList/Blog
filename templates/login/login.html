@@ -4,16 +4,27 @@
     {% if  code == 0 %}
         <script>
             alert('{{ msg }}');
-            window.history.go(-1);
+            javascript:void (0);
+        </script>
+    {% elif code == 1 %}
+        <script>
+            alert('{{ msg }}');
+            javascript:void (0);
+        </script>
+    {% elif code == 2 %}
+        <script>
+            alert('{{ msg }}');
+            javascript:void (0);
         </script>
     {% endif %}
-    <div class="weui-form">
-        <div class="weui-form__text-area" style="padding-top: 20%">
-            <h2 class="weui-form__title">登录</h2>
-        </div>
+    {% load static %}
+    <div class="weui_cells_title page_title" style="padding-top: 10%">
+        <img src="{% static 'images/logo.jpeg' %}" style="width: 40%;height:20%;text-align: center">
+    </div>
+    <div class="weui-form" style="padding-top: 0">
         <form action="{% url 'info:login' %}" id="form" method="post">{% csrf_token %}
             <div class="weui-form__control-area">
-                <div class="weui-cells__group weui-cells__group_form">
+                <div class="weui-cells__group weui-cells__group_form" style="padding: 0 0 0 0">
                     <div class="weui-cells__title">登录信息</div>
                     <div class="weui-cells weui-cells_form">
                         <div class="weui-cell">

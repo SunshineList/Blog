@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Article
+from django.contrib.auth.decorators import login_required
 
 
 # 主页
@@ -17,7 +18,7 @@ def article_page(request, article_id):
     for index, article_1 in enumerate(all_article):
         if index == 0:
             previous_index = 0
-            next_index = index + 1
+            next_index = index
         elif index == len(all_article) - 1:
             previous_index = index - 1
             next_index = index
@@ -27,7 +28,6 @@ def article_page(request, article_id):
         if str(article_1.id) == str(article_id):
             previous = all_article[previous_index]
             next = all_article[next_index]
-            break
 
     return render(request, "blog/blog_page.html", {'article': article,
                                                    'previous': previous,
@@ -47,9 +47,9 @@ def edit_page(request, article_id):
 def edit_action(request):
     title = request.POST.get('title')
     content = request.POST.get('content')
-    article_id = request.POST.get('acticle_id')
+    article_id = request.POST.get('article_id')
     if article_id == '0':
-        Article.objects.create(title=title, content=content)
+        Article.objects.create(title=title, content=content, author=None)
         articles = Article.objects.all()
         return render(request, "blog/index.html", {'articles': articles})
     else:

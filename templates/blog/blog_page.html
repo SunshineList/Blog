@@ -1,33 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'base/base.html' %}
+{% block title %}博客详情{% endblock %}
+{% block content %}
     {% load static %}
-    <meta charset="UTF-8">
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
-    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-    <title>Article_Page</title>
-</head>
-<body>
-<center>
-    <h1> {{ article.title }}</h1>
-    <br>
-    <h2> {{ article.content }}</h2>
-    <br><br>
-    <a href="{% url 'blog:edit_page' article.id %}" class="btn btn-primary btn-lg active" role="button">Change Blog</a>
-    <form action="{% url 'blog:del_page' article.id %}" method="post">
-        {% csrf_token %}
-        <br>
-        <input type="submit" value="Del_Blog" class="btn btn-primary btn-lg active" role="button">
-    </form>
-    <div>
-        <nav aria-label="...">
-            <ul class="pager">
-                <li><a href="{% url 'blog:article_page' previous.id %}">上一篇:{{ previous.title }}</a></li>
-                <li><a href="{% url 'blog:article_page' next.id %}">下一篇:{{ next.title }}</a></li>
-            </ul>
+    <div class="weui_cells_title page_title">
+        <img src="{% static 'images/logo.jpeg' %}" style="width: 40%;height:20%;text-align: center">
+    </div>
+    <div class="weui-form__control-area">
+        <div class="weui-cells__group weui-cells__group_form">
+            <div class="weui-cells__title" style="text-align: center">标题：{{ article.title }}</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell ">
+                    <div class="weui-cell__bd">
+                        <textarea class="weui-textarea" placeholder="博客内容" rows="3"
+                                  id="content">{{ article.content }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 0 10% 0 30%">
+        <a href="{% url 'blog:edit_page' article.id %}" class="weui-btn weui-btn_mini weui-btn_primary" style="float: left;margin-right: 15%">编辑</a>
+        <form action="{% url 'blog:del_page' article.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="删除" class="weui-btn weui-btn_mini weui-btn_primary">
+        </form>
+    </div>
+    <div style="margin-top: 10%">
+        <a href="{% url 'blog:article_page' previous.id %}"
+           class="weui-btn weui-btn_primary">上一篇:{{ previous.title }}</a>
+        <a href="{% url 'blog:article_page' next.id %}" class="weui-btn weui-btn_primary">下一篇:{{ next.title }}</a>
         </nav>
     </div>
-</center>
-</body>
-</html>
+{% endblock %}

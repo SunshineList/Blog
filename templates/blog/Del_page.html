@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Del_page</title>
-</head>
-<body>
+{% extends 'base/base.html' %}
+{% block title %}删除{% endblock %}
+{% block content %}
+    {% load static %}
+    <div class="weui_cells_title page_title" style="padding-top: 25%">
+        <img src="{% static 'images/logo.jpeg' %}" style="width: 40%;height:20%;text-align: center">
+    </div>
     <center>
         <h1 style="color: aqua">删除成功</h1>
         <br>
-        <a href="{% url 'blog:index' %}">返回首页</a>
+        <a href="{% url 'blog:index' %}" class="weui-btn weui-btn_primary">返回首页</a>
     </center>
-</body>
-</html>
+{% endblock %}

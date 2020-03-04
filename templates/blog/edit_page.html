@@ -1,51 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Edit_page</title>
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js"></script>
-    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-</head>
-<body>
-<script>
-    function judge() {
-        var text = document.getElementById("t").value;
-        var text_1 = document.getElementById("t1").value;
-        if (text === "" || text_1 === "")
-            alert("Blog is empty");
-        else{
-            document.getElementById("form").submit();
+{% extends 'base/base.html' %}
+{% block title %}老王博客{% endblock %}
+{% block content %}
+    <script>
+        function judge() {
+            var text = document.getElementById("t").value;
+            var text_1 = document.getElementById("t1").value;
+            if (text === "" || text_1 === "")
+                alert("请输入内容");
+            else {
+                document.getElementById("form").submit();
+            }
         }
-    }
-</script>
-<form action="{% url 'blog:edit_action' %}" method="post" id = "form">
-    {% csrf_token %}
-{#    {% if article %}#}
-        <center>
-        <input type="hidden" name="article_id" value="{{ article.id | default:'0'}}">
-        <label>文章标题
-            <input id="t" type="text" name="title" value="{{ article.title }}" class="form-control" placeholder="Title">
-        </label>
-            <br>
-        <label>文章内容
-            <input id="t1" type="text" name="content" value="{{ article.content }}" class="form-control" placeholder="Content">
-        </label>
-            <br>
-{#    {% else %}#}
-{#        <input type="hidden" name="article_id" value="0">#}
-{#        <label>文章标题#}
-{#            <input type="text" name="title">#}
-{#            <br>#}
-{#        </label>#}
-{#        <label>文章内容#}
-{#            <input type="text" name="content">#}
-{#            <br>#}
-{#        </label>#}
-{#    {% endif %}#}
-    <input type="button" value="提交" onclick="judge()" class="btn btn-info">
-    </center>
-</form>
-</body>
-</html>
+    </script>
+    <div class="weui_cells_title" style="text-align: center;color: #8b8b8b;padding-top: 15px;font-size: 20px">博客</div>
+    <form action="{% url 'blog:edit_action' %}" method="post" id="form">
+        {% csrf_token %}
+        {% if article %}
+            <input type="hidden" name="article_id" value="{{ article.id | default:'0' }}">
+            <div class="weui-cell">
+                <div class="weui_cell_hd"><label class="weui-label" style="width: 120px">博客标题</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui-input" type="text" placeholder="标题" name="title" id="t"
+                           value="{{ article.title }}">
+                </div>
+            </div>
+            <div class="weui-cell"></div>
+            <div class="weui-cells__title" style="color: #0D0D0D;font-size: 16px">博客内容</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <textarea class="weui-textarea" placeholder="博客内容" rows="3" name="content"
+                                  id="t1">{{ article.content }}</textarea>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <input type="hidden" name="article_id" value="0">
+            <div class="weui-cell">
+                <div class="weui_cell_hd"><label class="weui-label" style="width: 120px">博客标题</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui-input" type="text" placeholder="标题" name="title" id="t">
+                </div>
+            </div>
+            <div class="weui-cell"></div>
+            <div class="weui-cells__title" style="color: #0D0D0D;font-size: 16px">博客内容</div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <textarea class="weui-textarea" placeholder="博客内容" rows="3" name="content" id="t1"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+        <input type="button" value="提交" onclick="judge()" class="weui-btn weui-btn_primary" style="margin-top: 10%">
+        <a class="weui-btn weui-btn_primary" href="javascript:window.history.go(-1)">返回</a>
+    </form>
+{% endblock %}

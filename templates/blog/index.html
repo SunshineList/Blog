@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Blog Index</title>
-</head>
-<body>
-<center>
-    <h1><a href="{% url 'blog:edit_page' 0 %}">New Blog</a></h1>
-    <br><br>
-    {% for article in articles %}
-        <div style="color: aqua;border: 1px solid #00cccc">
-            <a href="{% url 'blog:article_page' article.id %}">第{{ article.id }}条:{{ article.title }}</a>
-            <span style="margin-left: 10%;color: #0f0f0f">发布日期{{ article.pub_time }}</span>
-        </div>
-        <br>
-    {% endfor %}
-</center>
-</body>
-</html>
+{% extends 'base/base.html' %}
+{% block title %}博客首页{% endblock %}
+{% block content %}
+    {% load static %}
+    <div class="weui_cells_title page_title">
+        <img src="{% static 'images/logo.jpeg' %}" style="width: 40%;height:20%;text-align: center">
+    </div>
+    <center>
+        <h1 style="padding-top: 5%"><a href="{% url 'blog:edit_page' 0 %}" style="color: blue">新建博客</a></h1>
+        {% for article in articles %}
+            <div style="color: aqua;border: 1px solid #00cccc;margin-top: 5%">
+                <a href="{% url 'blog:article_page' article.id %}">
+                    第{{ article.id }}条:{{ article.title }}
+                    <span style="margin-left: 10%;color: #0f0f0f">发布日期{{ article.pub_time }}</span>
+{#                    <span>发布人{{ article.author }}</span>#}
+                </a>
+            </div>
+            <br>
+        {% endfor %}
+        <a class="weui-btn weui-btn_primary" href="{% url 'info:login' %}">返回</a>
+    </center>
+{% endblock %}

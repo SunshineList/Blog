@@ -7,7 +7,6 @@ from django.http import JsonResponse
 from django.urls import reverse
 
 from .models import UserToken, Info
-from rest_framework.views import APIView
 from django.views.generic import View
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
@@ -29,7 +28,7 @@ def login(request):
         })
     check_pas = Info.objects.filter(username=usr).values('password')[0]['password']
     cp = check_password(pas, check_pas)
-    if not cp:
+    if not check_pas:
         return render(request, 'error.html', {
             'msg': '账号密码不匹配'
         })
@@ -42,21 +41,17 @@ def login(request):
             'code': 0,
             'msg': '验证码不正确'
         })
-    return render(request, 'blog/index.html')
+    return redirect(reverse('blog:index'))
 
 
 def register(request):
     if request.method == 'GET':
         return render(request, 'login/register.html')
     user = request.POST.get('username')
+    print(user)
     pwd = request.POST.get('password')
     passpwd = make_password(pwd)
     tel = request.POST.get('telphone')
-    obj = Info.objects.filter(username=user)
-    if not obj:
-        user = Info.objects.create(username=user, password=passpwd, telphone=tel)
-        if not user:
-            return render(request, 'error.html', {'msg': '创建用户失败'})
     capt = request.POST.get("yzm")  # 用户提交的验证码
     key = request.POST.get("hash")  # 验证码答案
     if not jarge_captcha(capt, key):
@@ -64,7 +59,14 @@ def register(request):
             'code': 0,
             'msg': '验证码不正确'
         })
-    return render(request, 'login/register.html', {'code': 1, 'msg': '注册成功'})
+    obj = Info.objects.filter(username=user).first()
+    if not obj:
+        user = Info.objects.create(username=user, password=passpwd, telphone=tel)
+        if not user:
+            return render(request, 'error.html', {'msg': '创建用户失败'})
+        return render(request, 'login/login.html', {'code': 1, 'msg': '注册成功'})
+    else:
+        return render(request, 'login/login.html', {'code': 2, 'msg': '用户已存在,注册失败'})
 
 
 # 创建验证码
