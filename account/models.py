@@ -22,7 +22,7 @@ TYPE = (
 
 
 class Info(models.Model):
-    type = models.CharField('类型', choices=TYPE, null=True, blank=True, default=1, max_length=1)
+    type = models.CharField('类型', choices=TYPE, null=True, blank=True, default='1', max_length=1)
     username = models.CharField('用户名', max_length=100, unique=True, null=True, blank=True)
     password = models.CharField('密码', max_length=100, null=True, blank=True)
     telphone = models.CharField('电话', max_length=20, null=True, blank=True)
