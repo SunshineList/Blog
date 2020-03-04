@@ -7,5 +7,8 @@ class Article(models.Model):
     content = models.TextField('内容', null=True)
     pub_time = models.DateTimeField('发布日期', auto_now_add=True, null=True)
 
+    class Meta:
+        verbose_name = verbose_name_plural = '博客'
+
     def __str__(self):
         return self.title
