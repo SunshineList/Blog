@@ -49,7 +49,7 @@ def edit_action(request):
     content = request.POST.get('content')
     article_id = request.POST.get('article_id')
     if article_id == '0':
-        Article.objects.create(title=title, content=content, author=None)
+        Article.objects.create(title=title, content=content)
         articles = Article.objects.all()
         return render(request, "blog/index.html", {'articles': articles})
     else:
@@ -62,5 +62,7 @@ def edit_action(request):
 
 # 删除博客
 def del_page(request, article_id):
-    Article.objects.get(pk=article_id).delete()
+    delete = Article.objects.get(pk=article_id).delete()
+    if not delete:
+        return render(request, 'error.html', {'msg': '删除失败'})
     return render(request, "blog/Del_page.html")
