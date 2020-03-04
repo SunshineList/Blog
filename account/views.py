@@ -57,13 +57,14 @@ def register(request):
         user = Info.objects.create(username=user, password=passpwd, telphone=tel)
         if not user:
             return render(request, 'error.html', {'msg': '创建用户失败'})
-        return render(request, 'login/register.html', {'msg': '注册成功'})
     capt = request.POST.get("yzm")  # 用户提交的验证码
     key = request.POST.get("hash")  # 验证码答案
     if not jarge_captcha(capt, key):
-        return render(request, 'login/login.html', {
+        return render(request, 'login/register.html', {
+            'code': 0,
             'msg': '验证码不正确'
         })
+    return render(request, 'login/register.html', {'code': 1, 'msg': '注册成功'})
 
 
 # 创建验证码

@@ -1,13 +1,19 @@
 {% extends 'base/base.html' %}
 {% block title %}注册{% endblock %}
 {% block content %}
-    {% if msg == '注册成功' %}
+    {% if  code == 0 %}
         <script>
-            alert('{{ msg }}')
+             window.history.go(-1);
+            alert('{{ msg }}');
+        </script>
+    {% elif code == 1 %}
+        <script>
+            window.history.go(-1);
+            alert('{{ msg }}');
         </script>
     {% endif %}
     <div class="weui-form">
-        <div class="weui-form__text-area" style="padding-top: 20%">
+        <div class="weui-form__text-area" style="padding-top: 15%">
             <h2 class="weui-form__title">注册</h2>
         </div>
         <form action="{% url 'info:register' %}" id="form" method="post">{% csrf_token %}
@@ -59,7 +65,7 @@
     </div>
     <div class="weui-form__opr-area">
         <a class="weui-btn weui-btn_primary" id="showTooltips">注册</a>
-        <a class="weui-btn weui-btn_primary" href="javascript:history.back(-1)">返回</a>
+        <a class="weui-btn weui-btn_primary" href="javascript:window.history.go(-1)">返回</a>
     </div>
 
     <div class="weui-form__tips-area">
@@ -90,10 +96,12 @@
                 alert("请填写密码")
             } else if (form.querenpwd.value !== form.password.value) {
                 alert("两次密码输入不一致");
-                form.password.value = ''
-                form.querenpwd.value = ''
+                form.password.value = '';
+                form.querenpwd.value = '';
             } else if (form.telphone.value === '') {
                 alert("请填写手机号")
+            } else if (form.yzm.value === '') {
+                alert('请填写验证码')
             } else {
                 document.getElementById('form').submit()
             }
