@@ -20,7 +20,7 @@ jdcal==1.4.1
 lxml==4.4.2
 macholib==1.13
 modulegraph==0.17
-mysqlclient==1.4.4
+mysqlclient==2.0.3
 numpy==1.18.0
 openpyxl==3.0.2
 parsel==1.5.2
@@ -33,7 +33,7 @@ pyasn1-modules==0.2.7
 pycodestyle==2.5.0
 pycparser==2.19
 PyDispatcher==2.0.5
-PyMySQL==0.9.3
+PyMySQL==1.0.2
 pyOpenSSL==19.1.0
 pytz==2019.3
 query-string==2019.4.13
