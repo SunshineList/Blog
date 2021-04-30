@@ -46,7 +46,7 @@ six==1.12.0
 soupsieve==1.9.5
 sqlparse==0.3.0
 tqdm==4.37.0
-Twisted==16.1.0
+Twisted==20.3.0
 urllib3==1.25.6
 w3lib==1.21.0
 #wxPython==4.0.7.post2
